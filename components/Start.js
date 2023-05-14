@@ -7,6 +7,8 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -20,62 +22,62 @@ const Start = ({ navigation }) => {
       resizeMode="cover"
       style={styles.image}
     >
-      <View style={styles.container}>
-        {/* <View style={styles.subContainer}> */}
-        <Text style={styles.text}>Chat App</Text>
-        {/* </View> */}
-        <View style={styles.subContainer}>
-          <View style={styles.textSection}>
-            <MaterialCommunityIcons
-              name="account-cowboy-hat-outline"
-              size={45}
-              color="#c0c5ce"
-            />
-            <TextInput
-              style={styles.textInput}
-              value={name}
-              onChangeText={setName}
-              placeholder="Your name"
-            />
-          </View>
-          <Text style={styles.colorSelector}>Choose your Background:</Text>
-          <View style={styles.radioButtonContainer}>
-            <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#96ceb4" }]}
-              onPress={() => setColor("#96ceb4")}
-            ></TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#ffeead" }]}
-              onPress={() => setColor("#ffeead")}
-            ></TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#ff6f69" }]}
-              onPress={() => setColor("#ff6f69")}
-            ></TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#ffcc5c" }]}
-              onPress={() => setColor("#ffcc5c")}
-            ></TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#88d8b0" }]}
-              onPress={() => setColor("#88d8b0")}
-            ></TouchableOpacity>
-          </View>
+      {/* Dismiss the keyboard when the user taps outside of the input fields */}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <Text style={styles.text}>Chat App</Text>
+          <View style={styles.subContainer}>
+            <View style={styles.textSection}>
+              <MaterialCommunityIcons
+                name="account-cowboy-hat-outline"
+                size={45}
+                color="#c0c5ce"
+              />
+              <TextInput
+                style={styles.textInput}
+                value={name}
+                onChangeText={setName}
+                placeholder="Your name"
+              />
+            </View>
+            <Text style={styles.colorSelector}>Choose your Background:</Text>
+            <View style={styles.radioButtonContainer}>
+              <TouchableOpacity
+                style={[styles.radioButton, { backgroundColor: "#96ceb4" }]}
+                onPress={() => setColor("#96ceb4")}
+              ></TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.radioButton, { backgroundColor: "#ffeead" }]}
+                onPress={() => setColor("#ffeead")}
+              ></TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.radioButton, { backgroundColor: "#ff6f69" }]}
+                onPress={() => setColor("#ff6f69")}
+              ></TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.radioButton, { backgroundColor: "#ffcc5c" }]}
+                onPress={() => setColor("#ffcc5c")}
+              ></TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.radioButton, { backgroundColor: "#88d8b0" }]}
+                onPress={() => setColor("#88d8b0")}
+              ></TouchableOpacity>
+            </View>
 
-          {/* <Text style={styles.textBg}>Choose Background Color</Text> */}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              navigation.navigate("Chat", {
-                name: name ? name : "User",
-                color: color ? color : "white",
-              })
-            }
-          >
-            <Text style={styles.boxText}>Start chatting</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                navigation.navigate("Chat", {
+                  name: name ? name : "User",
+                  color: color ? color : "white",
+                })
+              }
+            >
+              <Text style={styles.boxText}>Start chatting</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ImageBackground>
   );
 };
@@ -86,15 +88,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   subContainer: {
-    // flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
-    // width: "88%",
     backgroundColor: "#fff",
     marginBottom: 15,
     height: "45%",
@@ -112,9 +109,6 @@ const styles = StyleSheet.create({
   textInput: {
     height: 50,
     width: "75%",
-    // borderColor: "grey",
-    // borderWidth: 1,
-    // borderRadius: 2,
     color: "#757083",
     opacity: 50,
     fontSize: 16,

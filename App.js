@@ -1,7 +1,7 @@
-import { StatusBar } from "expo-status-bar";
+import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-// import react Navigation
+// import NavigationContainer, createNativeStackNavigator from react Navigation
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import the screens
