@@ -9,12 +9,31 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
+
 const Start = ({ navigation }) => {
+  const auth = getAuth();
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
+
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then((result) => {
+        navigation.navigate("Chat", {
+          userID: result.user.uid,
+          name: name ? name : "User",
+          color: color ? color : "white",
+        });
+        Alert.alert("Signed in Successfully!");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try later again.");
+      });
+  };
 
   return (
     <ImageBackground
@@ -64,15 +83,7 @@ const Start = ({ navigation }) => {
               ></TouchableOpacity>
             </View>
 
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() =>
-                navigation.navigate("Chat", {
-                  name: name ? name : "User",
-                  color: color ? color : "white",
-                })
-              }
-            >
+            <TouchableOpacity style={styles.button} onPress={signInUser}>
               <Text style={styles.boxText}>Start chatting</Text>
             </TouchableOpacity>
           </View>
